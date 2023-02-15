@@ -3,11 +3,16 @@
 #include "Interceptor.h"
 #include "InterceptRouting/Routing/FunctionInlineHook/FunctionInlineHookRouting.h"
 
-PUBLIC int DobbyHook(void *address, dobby_dummy_func_t replace_func, dobby_dummy_func_t *origin_func) {
+bool g_inject_valid_prologue = false;
+
+PUBLIC int DobbyHook(void *address, dobby_dummy_func_t replace_func, dobby_dummy_func_t *origin_func,
+                     bool inject_valid_prologue) {
   if (!address) {
     ERROR_LOG("function address is 0x0");
     return RS_FAILED;
   }
+
+  g_inject_valid_prologue = inject_valid_prologue;
 
 #if defined(__APPLE__) && defined(__arm64__)
 #if __has_feature(ptrauth_calls)

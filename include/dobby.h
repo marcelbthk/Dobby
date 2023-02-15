@@ -150,7 +150,8 @@ int DobbyWrap(void *function_address, PreCallTy pre_call, PostCallTy post_call);
 #endif
 
 // function inline hook
-int DobbyHook(void *address, dobby_dummy_func_t replace_func, dobby_dummy_func_t *origin_func);
+int DobbyHook(void *address, dobby_dummy_func_t replace_func, dobby_dummy_func_t *origin_func,
+              bool inject_valid_prologue);
 
 // dynamic binary instruction instrument
 // [!!! READ ME !!!]
